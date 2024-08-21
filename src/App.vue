@@ -93,8 +93,14 @@ onMounted(() => {
             to="/"
             class="text-white bg-warning px-4 py-2 rounded-xl sm text-decoration-none"
           >
-            <VIcon icon="mdi-hamburger" class="mr-2" />
-            <span class="text-xs">Hardal</span>
+            <VIcon
+              class="mr-2 rounded-x1"
+              to="/"
+              prepend-icon="mdi-account"
+              color="#11111"
+              variant="tonal"
+            />
+            <span class="text-xs">Let's Debate</span>
           </RouterLink>
         </template>
 
@@ -107,32 +113,20 @@ onMounted(() => {
 
       <VNavigationDrawer v-model="sidebar" temporary floating>
         <VList>
-          <VListItem prepend-icon="mdi-hamburger" title="Menüler" to="/" link />
           <VListItem
-            prepend-icon="mdi-phone"
-            title="İletişim"
-            to="/contact"
+            prepend-icon="mdi-account"
+            title="Senin İçin"
+            to="/"
             link
           />
 
-          <VListItem
-            v-if="!authStore.isLoggedIn"
-            prepend-icon="mdi-login"
-            to="/panel/login"
-            title="Giriş Yap"
-          />
+          <VListItem prepend-icon="mdi-fire" to="/" title="Trendler" />
 
-          <template v-else>
+          <template>
             <VListItem
-              prepend-icon="mdi-grid-large"
-              to="/panel"
-              title="Kontrol Paneli"
-            />
-
-            <VListItem
-              prepend-icon="mdi-logout"
-              to="/panel/logout"
-              title="Çıkış Yap"
+              prepend-icon="mdi-account-details-outline"
+              to="#"
+              title="Sıralama"
             />
           </template>
         </VList>
