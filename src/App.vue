@@ -33,8 +33,8 @@ onMounted(() => {
 
         <div class="d-flex align-center">
           <VBtn to="/" class="mr-2"> Senin İçin</VBtn>
-          <VBtn to="/contact"> Trend </VBtn>
-          <VBtn to="/contact"> Sıralama </VBtn>
+          <VBtn to="/trend" class="mr-2"> Trend </VBtn>
+          <VBtn to="/siralama"> Sıralama </VBtn>
         </div>
 
         <template #append>
@@ -91,16 +91,16 @@ onMounted(() => {
         <template #prepend>
           <RouterLink
             to="/"
-            class="text-white bg-warning px-4 py-2 rounded-xl sm text-decoration-none"
+            class="text-black px-4 py-2 rounded-xl sm text-decoration-none bg-grey-lighten-1"
           >
             <VIcon
               class="mr-2 rounded-x1"
               to="/"
-              prepend-icon="mdi-account"
+              icon="mdi-account"
               color="#11111"
               variant="tonal"
             />
-            <span class="text-xs">Let's Debate</span>
+            <span class="text-xs">LET'S DEBATE</span>
           </RouterLink>
         </template>
 
@@ -120,10 +120,10 @@ onMounted(() => {
             link
           />
 
-          <VListItem prepend-icon="mdi-fire" to="/" title="Trendler" />
+          <VListItem prepend-icon="mdi-fire" to="/trendler" title="Trendler" />
           <VListItem
             prepend-icon="mdi-account-details-outline"
-            to="#"
+            to="/siralama"
             title="Sıralama"
           />
         </VList>
