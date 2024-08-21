@@ -70,21 +70,12 @@
   </v-container>
   <v-container>
     <v-row>
-      <span
-        style="
-          display: inline-block;
-          margin: 1em;
-          width: 160px;
-          text-align: center;
-        "
-        ><a
-          href="https://www.jigsawplanet.com/?rc=play&amp;pid=1a240ca29994"
-          style="display: inline-block; position: relative"
-          ><img
-            alt="preview"
-            style="display: block; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4)"
-            src="https://im.jigsawplanet.com/?rc=img&amp;pid=1a240ca29994&amp;size=160" /></a
-      ></span>
+      <iframe
+        src="https://www.jigsawplanet.com/?rc=play&amp;pid=1a240ca29994&amp;view=iframe"
+        style="width: 100%; height: 600px"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
     </v-row>
   </v-container>
 </template>
