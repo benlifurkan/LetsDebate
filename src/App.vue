@@ -121,14 +121,11 @@ onMounted(() => {
           />
 
           <VListItem prepend-icon="mdi-fire" to="/" title="Trendler" />
-
-          <template>
-            <VListItem
-              prepend-icon="mdi-account-details-outline"
-              to="#"
-              title="Sıralama"
-            />
-          </template>
+          <VListItem
+            prepend-icon="mdi-account-details-outline"
+            to="#"
+            title="Sıralama"
+          />
         </VList>
       </VNavigationDrawer>
 
@@ -147,7 +144,7 @@ onMounted(() => {
             class="d-flex flex-column-reverse align-center align-md-start flex-md-row"
           >
             <iframe
-              title="Hardal Cafe Konum"
+              title="İstanbul"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d385396.3210961672!2d28.682527326897503!3d41.00537021009964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0xe1ccfe98bc01b0d0!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1724182773271!5m2!1str!2str"
               width="100%"
               height="300"
