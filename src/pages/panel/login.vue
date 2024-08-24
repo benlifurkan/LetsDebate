@@ -74,7 +74,6 @@
 <script>
 import { toast } from "vue-sonner";
 import { axios } from "@/store/api";
-import { useAuthStore } from "@/store/auth";
 
 export default {
   data() {
@@ -107,10 +106,6 @@ export default {
           // Kullanıcıyı yönlendirin veya başka bir işlem yapın, örneğin token'ı saklayın
           // Token'ı localStorage veya Vuex gibi bir yere saklayın
           localStorage.setItem("authToken", response.data.token);
-
-          // Auth store'u güncelle
-          const authStore = useAuthStore();
-          authStore.isLoggedIn(true); // Kullanıcıyı giriş yapmış olarak işaretle
 
           // Ana sayfaya yönlendirme yapın
           this.$router.push("/");
