@@ -22,5 +22,6 @@ declare module 'vue-router/auto-routes' {
     '/[404]': RouteRecordInfo<'/[404]', '/:404', { 404: ParamValue<true> }, { 404: ParamValue<false> }>,
     '/panel/login': RouteRecordInfo<'/panel/login', '/panel/login', Record<never, never>, Record<never, never>>,
     '/panel/logout': RouteRecordInfo<'/panel/logout', '/panel/logout', Record<never, never>, Record<never, never>>,
+    '/panel/register': RouteRecordInfo<'/panel/register', '/panel/register', Record<never, never>, Record<never, never>>,
   }
 }

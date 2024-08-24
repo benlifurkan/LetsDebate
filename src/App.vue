@@ -40,6 +40,17 @@ onMounted(() => {
         <template #append>
           <VBtn
             icon
+            href="/profile"
+            size="small"
+            variant="tonal"
+            color="primary"
+            class="ml-2"
+          >
+            <VIcon icon="mdi-account" />
+          </VBtn>
+
+          <VBtn
+            icon
             href="#"
             size="small"
             variant="tonal"
@@ -47,6 +58,17 @@ onMounted(() => {
             class="ml-2"
           >
             <VIcon icon="mdi-phone" />
+          </VBtn>
+
+          <VBtn
+            icon
+            href="/panel/register"
+            size="small"
+            variant="tonal"
+            color="primary"
+            class="ml-2"
+          >
+            <VIcon icon="mdi-plus" />
           </VBtn>
 
           <VBtn
@@ -62,7 +84,7 @@ onMounted(() => {
           </VBtn>
 
           <template v-else>
-            <VBtn
+            <!-- <VBtn
               icon
               to="/panel"
               size="small"
@@ -71,7 +93,7 @@ onMounted(() => {
               class="ml-2"
             >
               <VIcon icon="mdi-grid-large" />
-            </VBtn>
+            </VBtn> -->
 
             <VBtn
               icon
@@ -137,6 +159,11 @@ onMounted(() => {
             prepend-icon="mdi-logout"
             to="/panel/logout"
             title="Çıkış Yap"
+          />
+          <VListItem
+            prepend-icon="mdi-plus"
+            to="/panel/register"
+            title="Kayıt Ol"
           />
         </VList>
       </VNavigationDrawer>

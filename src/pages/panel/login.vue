@@ -2,8 +2,8 @@
   <div class="min-h-screen flex items-center justify-center bg-white">
     <div class="max-w-md w-full bg-white shadow-md rounded-lg p-8 space-y-6">
       <div class="text-center">
-        <h2 class="text-3xl font-bold text-gray-800">Welcome Back!</h2>
-        <p class="mt-2 text-gray-600">Please sign in to your account</p>
+        <h2 class="text-3xl font-bold text-gray-800">Hoş Geldin!</h2>
+        <p class="mt-2 text-gray-600">Lütfen hesabına giriş yap</p>
       </div>
       <form @submit.prevent="handleSubmit">
         <div class="space-y-4">
@@ -11,7 +11,7 @@
             <label
               for="UserEmail"
               class="block text-sm font-medium text-gray-700"
-              >Email</label
+              >E-posta</label
             >
             <input
               v-model="UserEmail"
@@ -26,7 +26,7 @@
             <label
               for="UserPassword"
               class="block text-sm font-medium text-gray-700"
-              >Password</label
+              >Şifre</label
             >
             <input
               v-model="UserPassword"
@@ -39,22 +39,12 @@
           </div>
         </div>
         <div class="flex items-center justify-between mt-6">
-          <div class="flex items-center">
-            <input
-              id="remember"
-              type="checkbox"
-              v-model="remember"
-              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-            />
-            <label for="remember" class="ml-2 block text-sm text-gray-900"
-              >Remember me</label
-            >
-          </div>
+          <div class="flex items-center"></div>
           <div class="text-sm">
             <a
               href="#"
               class="font-medium text-indigo-600 hover:text-indigo-500"
-              >Forgot your password?</a
+              >Şifreni mi unuttun?</a
             >
           </div>
         </div>
