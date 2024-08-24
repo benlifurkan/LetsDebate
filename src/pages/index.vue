@@ -68,7 +68,7 @@
       Start Live
     </v-btn>
   </v-container>
-  <v-container>
+  <!-- <v-container>
     <v-row>
       <iframe
         src="https://www.jigsawplanet.com/?rc=play&amp;pid=1a240ca29994&amp;view=iframe"
@@ -77,7 +77,7 @@
         allowfullscreen
       ></iframe>
     </v-row>
-  </v-container>
+  </v-container> -->
 </template>
 <script>
 import { axios } from "@/store/api";

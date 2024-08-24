@@ -132,6 +132,12 @@ onMounted(() => {
             to="/panel/login"
             title="Giriş Yap"
           />
+          <VListItem
+            v-else
+            prepend-icon="mdi-logout"
+            to="/panel/logout"
+            title="Çıkış Yap"
+          />
         </VList>
       </VNavigationDrawer>
 

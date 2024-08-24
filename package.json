@@ -1,5 +1,5 @@
 {
-  "name": "LetsDebate",
+  "name": "letsdebate",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -18,8 +18,10 @@
     "roboto-fontface": "*",
     "slugify": "^1.6.6",
     "vue": "^3.4.31",
+    "vue-router": "^4.4.0",
     "vue-sonner": "^1.1.4",
-    "vuetify": "^3.6.11"
+    "vuetify": "^3.6.11",
+    "webfontloader": "^1.0.0"
   },
   "devDependencies": {
     "@babel/types": "^7.24.7",
@@ -43,7 +45,6 @@
     "unplugin-vue-router": "^0.10.0",
     "vite": "^5.3.3",
     "vite-plugin-vuetify": "^2.0.3",
-    "vue-router": "^4.4.0",
     "vue-tsc": "^2.0.26"
   }
 }

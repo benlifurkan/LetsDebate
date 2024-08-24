@@ -35,12 +35,18 @@ dependencies:
   vue:
     specifier: ^3.4.31
     version: 3.4.37(typescript@5.5.4)
+  vue-router:
+    specifier: ^4.4.0
+    version: 4.4.3(vue@3.4.37)
   vue-sonner:
     specifier: ^1.1.4
     version: 1.1.4
   vuetify:
     specifier: ^3.6.11
     version: 3.6.14(typescript@5.5.4)(vite-plugin-vuetify@2.0.4)(vue@3.4.37)
+  webfontloader:
+    specifier: ^1.0.0
+    version: 1.6.28
 
 devDependencies:
   '@babel/types':
@@ -106,9 +112,6 @@ devDependencies:
   vite-plugin-vuetify:
     specifier: ^2.0.3
     version: 2.0.4(vite@5.4.0)(vue@3.4.37)(vuetify@3.6.14)
-  vue-router:
-    specifier: ^4.4.0
-    version: 4.4.3(vue@3.4.37)
   vue-tsc:
     specifier: ^2.0.26
     version: 2.0.29(typescript@5.5.4)
@@ -828,7 +831,6 @@ packages:
 
   /@vue/devtools-api@6.6.3:
     resolution: {integrity: sha512-0MiMsFma/HqA6g3KLKn+AGpL1kgKhFWszC9U29NfpWK5LE7bjeXxySWJrOJ77hBz+TBrBQ7o4QJqbPbqbs8rJw==}
-    dev: true
 
   /@vue/eslint-config-typescript@13.0.0(eslint-plugin-vue@9.27.0)(eslint@8.57.0)(typescript@5.5.4):
     resolution: {integrity: sha512-MHh9SncG/sfqjVqjcuFLOLD6Ed4dRAis4HNt0dXASeAuLqIAx4YMB1/m2o4pUKK1vCt8fUvYG8KKX2Ot3BVZTg==}
@@ -3567,7 +3569,6 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.6.3
       vue: 3.4.37(typescript@5.5.4)
-    dev: true
 
   /vue-sonner@1.1.4:
     resolution: {integrity: sha512-ATt+o38ALfPBfmaT3rfr10K+mkZ/7EdqZewEZVI3krSc1RaIDK8fI9gQro0Jlh8HZcOHv2oUDJufSIUl/qpdOA==}
@@ -3622,6 +3623,10 @@ packages:
       typescript: 5.5.4
       vite-plugin-vuetify: 2.0.4(vite@5.4.0)(vue@3.4.37)(vuetify@3.6.14)
       vue: 3.4.37(typescript@5.5.4)
+
+  /webfontloader@1.6.28:
+    resolution: {integrity: sha512-Egb0oFEga6f+nSgasH3E0M405Pzn6y3/9tOVanv/DLfa1YBIgcv90L18YyWnvXkRbIM17v5Kv6IT2N6g1x5tvQ==}
+    dev: false
 
   /webpack-sources@3.2.3:
     resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==}

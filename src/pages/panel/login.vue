@@ -74,6 +74,7 @@
 <script>
 import { toast } from "vue-sonner";
 import { axios } from "@/store/api";
+import { authStore } from "@/store/auth";
 
 export default {
   data() {
@@ -106,6 +107,11 @@ export default {
           // Kullanıcıyı yönlendirin veya başka bir işlem yapın, örneğin token'ı saklayın
           // Token'ı localStorage veya Vuex gibi bir yere saklayın
           localStorage.setItem("authToken", response.data.token);
+          localStorage.setItem(
+            "isLoggedIn",
+            (authStore.value.isLoggedIn = true)
+          );
+          // authStore.value.isLoggedIn = true;
 
           // Ana sayfaya yönlendirme yapın
           this.$router.push("/");
@@ -126,7 +132,3 @@ export default {
   },
 };
 </script>
-
-<style>
-/* Eğer ekstra stil ayarları gerekiyorsa buraya ekleyin */
-</style>
