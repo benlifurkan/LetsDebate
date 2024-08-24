@@ -126,6 +126,12 @@ onMounted(() => {
             to="/siralama"
             title="Sıralama"
           />
+          <VListItem
+            v-if="!authStore.isLoggedIn"
+            prepend-icon="mdi-login"
+            to="/panel/login"
+            title="Giriş Yap"
+          />
         </VList>
       </VNavigationDrawer>
 
