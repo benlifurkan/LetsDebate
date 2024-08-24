@@ -1,20 +1,3 @@
-<script lang="ts" setup>
-import { useQRCode } from "@vueuse/integrations/useQRCode";
-import { Toaster } from "vue-sonner";
-import { authStore } from "@/store/auth";
-import { ref, onMounted } from "vue";
-
-const sidebar = ref(false);
-const link = ref("");
-const qrCode = useQRCode(link, {
-  margin: 0,
-});
-
-onMounted(() => {
-  link.value = location.origin;
-});
-</script>
-
 <template>
   <VLayout>
     <VApp class="bg-white">
@@ -49,6 +32,7 @@ onMounted(() => {
             <VIcon icon="mdi-phone" />
           </VBtn>
 
+          <!-- Eğer kullanıcı giriş yapmadıysa 'Giriş Yap' butonunu göster -->
           <VBtn
             v-if="!authStore.isLoggedIn"
             icon
@@ -61,6 +45,7 @@ onMounted(() => {
             <VIcon icon="mdi-login" />
           </VBtn>
 
+          <!-- Eğer kullanıcı giriş yaptıysa 'Panel' ve 'Çıkış Yap' butonlarını göster -->
           <template v-else>
             <VBtn
               icon
@@ -126,11 +111,21 @@ onMounted(() => {
             to="/siralama"
             title="Sıralama"
           />
+
+          <!-- Giriş Yap butonu yalnızca kullanıcı giriş yapmadığında görünür -->
           <VListItem
             v-if="!authStore.isLoggedIn"
             prepend-icon="mdi-login"
             to="/panel/login"
             title="Giriş Yap"
+          />
+
+          <!-- Çıkış Yap butonu yalnızca kullanıcı giriş yaptığında görünür -->
+          <VListItem
+            v-if="authStore.isLoggedIn"
+            prepend-icon="mdi-logout"
+            to="/panel/logout"
+            title="Çıkış Yap"
           />
         </VList>
       </VNavigationDrawer>
@@ -199,3 +194,20 @@ onMounted(() => {
     <Toaster rich-colors />
   </VLayout>
 </template>
+
+<script lang="ts" setup>
+import { useQRCode } from "@vueuse/integrations/useQRCode";
+import { Toaster } from "vue-sonner";
+import { authStore } from "@/store/auth";
+import { ref, onMounted } from "vue";
+
+const sidebar = ref(false);
+const link = ref("");
+const qrCode = useQRCode(link, {
+  margin: 0,
+});
+
+onMounted(() => {
+  link.value = location.origin;
+});
+</script>
