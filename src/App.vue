@@ -166,6 +166,7 @@ onMounted(() => {
             title="Kayıt Ol"
           />
         </VList>
+        <VListItem prepend-icon="mdi-account" to="/profile" title="Profilim" />
       </VNavigationDrawer>
 
       <VMain class="my-4">
