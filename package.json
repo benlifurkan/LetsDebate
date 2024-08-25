@@ -13,6 +13,8 @@
     "@vueuse/integrations": "^11.0.1",
     "axios": "^1.7.4",
     "core-js": "^3.37.1",
+    "devextreme": "^24.1.5",
+    "devextreme-vue": "^24.1.5",
     "jwt-decode": "^4.0.0",
     "qrcode": "1",
     "roboto-fontface": "*",
@@ -21,7 +23,8 @@
     "vue-router": "^4.4.0",
     "vue-sonner": "^1.1.4",
     "vuetify": "^3.6.11",
-    "webfontloader": "^1.0.0"
+    "webfontloader": "^1.0.0",
+    "devextreme-dist": "24.1.3"
   },
   "devDependencies": {
     "@babel/types": "^7.24.7",

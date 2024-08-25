@@ -65,6 +65,7 @@
 import { toast } from "vue-sonner";
 import { axios } from "@/store/api";
 import { authStore } from "@/store/auth";
+import { jwtDecode } from "jwt-decode";
 
 export default {
   data() {
@@ -95,13 +96,21 @@ export default {
           console.log("Login successful!", response.data);
           console.log(response.data.UserId);
           // Kullanıcıyı yönlendirin veya başka bir işlem yapın, örneğin token'ı saklayın
-          // Token'ı localStorage veya Vuex gibi bir yere saklayın
-          localStorage.setItem("authToken", response.data.token);
+
+          const token = response.data.token;
+          localStorage.setItem("token", token);
+
+          const decodedToken = jwtDecode(token);
+          const userId = decodedToken.id;
+
+          localStorage.setItem("userId", userId);
+
+          console.log("Kullanıcı ID:", userId);
+
           localStorage.setItem(
             "isLoggedIn",
             (authStore.value.isLoggedIn = true)
           );
-          // authStore.value.isLoggedIn = true;
 
           // Ana sayfaya yönlendirme yapın
           this.$router.push("/");
