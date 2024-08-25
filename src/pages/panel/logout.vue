@@ -8,6 +8,7 @@ const router = useRouter();
 
 useTimeoutFn(() => {
   authStore.value.isLoggedIn = false;
+  localStorage.clear();
   toast.success("Çıkış yapıldı");
 
   router.push("/");

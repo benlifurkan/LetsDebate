@@ -1,77 +1,59 @@
 <template>
   <div class="profile-container">
-    <div v-if="user" class="profile-card">
+    <div v-if="userData" class="profile-card">
       <div class="profile-header">
         <img
-          :src="user.ProfilePicture"
+          :src="userData.ProfilePicture"
           alt="Profile Picture"
           class="profile-picture"
         />
-        <h1 class="username">{{ user.UserName }} {{ user.UserLastName }}</h1>
-        <h2 class="nickname">{{ user.NickName }}</h2>
+        <div class="profile-info">
+          <h1 class="username">
+            {{ userData.UserName }} {{ userData.UserLastName }}
+          </h1>
+          <h2 class="nickname">{{ userData.NickName }}</h2>
+        </div>
       </div>
       <div class="profile-details">
-        <p><strong>Email:</strong> {{ user.UserEmail }}</p>
-        <p><strong>Doğum Tarihi:</strong> {{ formattedDate }}</p>
-        <p><strong>Puanlar:</strong> {{ user.UserPoints }}</p>
-        <p><strong>Kullanıcı ID:</strong> {{ user.UserId }}</p>
-        <p><strong>Oluşturulma Tarihi:</strong> {{ formattedCreatedDate }}</p>
+        <p><strong>Email:</strong> {{ userData.UserEmail }}</p>
+        <p><strong>Puanlar:</strong> {{ userData.UserPoints }}</p>
+        <p><strong>Kullanıcı ID:</strong> {{ userData.UserId }}</p>
       </div>
     </div>
-    <div v-else>
-      <p>Loading...</p>
+    <div v-else class="loading">
+      <v-skeleton-loader
+        style="padding: 0px 100px 0px 100px"
+        width="600px"
+        height="100vh"
+        type="card"
+      ></v-skeleton-loader>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import { axios } from "@/store/api";
 
 export default {
   data() {
     return {
-      user: null,
+      userData: null,
     };
   },
-  computed: {
-    formattedDate() {
-      return this.user
-        ? new Date(this.user.DateOfBirth).toLocaleDateString("tr-TR")
-        : "";
-    },
-    formattedCreatedDate() {
-      return this.user
-        ? new Date(this.user.CreatedDate).toLocaleDateString("tr-TR")
-        : "";
-    },
-  },
   async created() {
-    const userId = localStorage.getItem("userId");
-    console.log("Kullanıcı ID:", userId);
+    try {
+      const userId = localStorage.getItem("userId");
+      const response = await axios.get(`api/users/getuserbyid/${userId}`, {});
+      console.log(response.data);
 
-    if (userId) {
-      try {
-        // const response = await axios.get(`/api/users/getUserById`, {
-        //   params: {
-        //     id: userId,
-        //   },
-        // });
-        const response = await axios.get(`/users/getuserbyid/${userId}`);
-        console.log(response.data);
-
-        // Yanıtı işleme
-        if (response.data) {
-          console.log("Kullanıcı verisi alındı:", response.data);
-          this.user = response.data;
-        } else {
-          console.error("Kullanıcı verisi bulunamadı.");
-        }
-      } catch (error) {
-        console.error("Kullanıcı verisi alınırken hata oluştu:", error);
+      if (response.data) {
+        console.log("Kullanıcı verisi alındı:", response.data);
+        this.userData = response.data;
+      } else {
+        console.error("Kullanıcı verisi bulunamadı.");
       }
-    } else {
-      console.error("Kullanıcı ID bulunamadı.");
-      this.$router.push("/login");
+    } catch (error) {
+      console.error("Kullanıcı verisi alınırken hata oluştu:", error);
     }
   },
 };
@@ -83,51 +65,76 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #f0f4f8;
   padding: 20px;
 }
 
 .profile-card {
   background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 450px;
   max-width: 100%;
   text-align: center;
-  padding: 20px;
+  padding: 30px;
+  transition: transform 0.3s;
+}
+
+.profile-card:hover {
+  transform: translateY(-10px);
 }
 
 .profile-header {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
 .profile-picture {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  border: 4px solid #3498db;
+  transition: border-color 0.3s;
+}
+
+.profile-info {
+  text-align: center;
 }
 
 .username {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  margin-bottom: 5px;
   color: #333333;
+  margin-bottom: 5px;
 }
 
 .nickname {
-  font-size: 18px;
-  color: #777777;
+  font-size: 20px;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+.profile-details {
+  text-align: left;
 }
 
 .profile-details p {
   font-size: 16px;
   margin: 10px 0;
-  color: #555555;
+  color: #444444;
 }
 
 .profile-details p strong {
   font-weight: bold;
+  color: #333333;
+}
+
+.loading {
+  font-size: 18px;
+  color: #555555;
 }
 </style>
