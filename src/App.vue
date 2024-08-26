@@ -155,20 +155,26 @@ onMounted(() => {
       </VAppBar>
 
       <VNavigationDrawer v-model="sidebar" temporary floating>
+        <!-- HOME Bölümü -->
         <VList>
+          <VListSubheader>HOME</VListSubheader>
           <VListItem
             prepend-icon="mdi-account"
             title="Senin İçin"
             to="/"
             link
           />
-
           <VListItem prepend-icon="mdi-fire" to="/trendler" title="Trendler" />
           <VListItem
             prepend-icon="mdi-account-details-outline"
             to="/siralama"
             title="Sıralama"
           />
+        </VList>
+
+        <!-- AUTH Bölümü -->
+        <VList>
+          <VListSubheader>AUTH</VListSubheader>
           <VListItem
             v-if="!authStore.isLoggedIn"
             prepend-icon="mdi-login"
@@ -182,12 +188,31 @@ onMounted(() => {
             title="Çıkış Yap"
           />
           <VListItem
-            prepend-icon="mdi-plus"
+            prepend-icon="mdi-account-plus"
             to="/panel/register"
             title="Kayıt Ol"
           />
+          <VListItem
+            prepend-icon="mdi-account"
+            to="/profile"
+            title="Profilim"
+          />
         </VList>
-        <VListItem prepend-icon="mdi-account" to="/profile" title="Profilim" />
+
+        <!-- TOPIC Bölümü -->
+        <VList>
+          <VListSubheader>TOPIC</VListSubheader>
+          <VListItem
+            prepend-icon="mdi-tooltip-outline"
+            to="/topic/create"
+            title="Konu Oluştur"
+          />
+          <VListItem
+            prepend-icon="mdi-format-list-bulleted"
+            to="/topic"
+            title="Konular"
+          />
+        </VList>
       </VNavigationDrawer>
 
       <VMain class="my-4">
