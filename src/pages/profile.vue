@@ -137,4 +137,25 @@ export default {
   font-size: 18px;
   color: #555555;
 }
+/* profile.vue - Mobil uyumluluk için düzenlemeler */
+.profile-container {
+  padding: 10px; /* Mobil cihazlar için padding'i azalt */
+}
+
+.profile-card {
+  width: 100%; /* Kart genişliğini mobil cihazlarda sınırlama */
+  max-width: 400px; /* Maksimum genişliği mobil uyumluluk için azalt */
+}
+
+@media (max-width: 600px) {
+  .profile-card {
+    padding: 20px; /* Mobil cihazlar için daha dar padding */
+  }
+  .username {
+    font-size: 24px; /* Mobilde başlık boyutunu küçült */
+  }
+  .nickname {
+    font-size: 18px; /* Mobilde takma ad boyutunu küçült */
+  }
+}
 </style>

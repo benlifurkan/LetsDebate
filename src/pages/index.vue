@@ -142,4 +142,26 @@ export default {
 .v-btn {
   font-weight: bold;
 }
+
+/* index.vue - Mobil uyumluluk için düzenlemeler */
+.v-container {
+  padding: 15px; /* Mobil cihazlar için daha dar padding */
+  background-color: #f9f9f9;
+}
+
+.event-card {
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  margin: 10px auto; /* Kartlar arasında daha fazla boşluk bırak */
+}
+
+@media (max-width: 600px) {
+  .event-card {
+    max-width: 100%; /* Mobil cihazlarda kartın genişliğini sınırlama */
+  }
+  .v-container {
+    padding: 10px; /* Mobil cihazlar için daha da dar padding */
+  }
+}
 </style>
