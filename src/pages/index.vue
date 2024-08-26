@@ -3,56 +3,58 @@
     <!-- Etkinlik Kartları -->
     <v-row>
       <v-col v-for="(item, index) in events" :key="index" cols="12" md="3">
-        <v-card
-          class="mx-auto mb-2"
-          max-width="500"
-          style="background: light; border: none"
-        >
-          <v-container fluid>
-            <v-row dense>
-              <v-col cols="12">
-                <v-img
-                  :src="item.image"
-                  class="align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="400px"
-                  cover
-                >
-                  <v-card-title class="text-white">{{
-                    item.title
-                  }}</v-card-title>
-                </v-img>
+        <v-card class="mx-auto mb-5 event-card" max-width="350" elevation="4">
+          <v-img
+            :src="item.image"
+            class="align-end"
+            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+            height="200px"
+            cover
+          >
+            <v-card-title class="text-white event-title">{{
+              item.title
+            }}</v-card-title>
+          </v-img>
 
-                <v-card-subtitle class="grey--text text--darken-2 mt-2">
-                  <v-avatar class="mr-2" size="24">
-                    <v-img :src="item.userImage" alt="User Avatar"></v-img>
-                  </v-avatar>
-                  {{ item.status }} - {{ item.createdAt }}
-                </v-card-subtitle>
+          <v-card-subtitle
+            class="grey--text text--darken-1 text-subtitle-1 px-4 mt-3"
+          >
+            <v-avatar class="mr-2" size="24">
+              <v-img :src="item.userImage" alt="User Avatar"></v-img>
+            </v-avatar>
+            {{ item.desc }} - {{ item.createdAt }}
+          </v-card-subtitle>
 
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    color="medium-emphasis"
-                    icon="mdi-heart"
-                    size="small"
-                  ></v-btn>
+          <v-divider></v-divider>
 
-                  <v-btn
-                    color="medium-emphasis"
-                    icon="mdi-bookmark"
-                    size="small"
-                  ></v-btn>
+          <v-card-actions class="justify-center">
+            <v-btn
+              icon
+              class="action-btn"
+              color="grey darken-1"
+              v-tooltip.bottom="'Like'"
+            >
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
 
-                  <v-btn
-                    color="medium-emphasis"
-                    icon="mdi-share-variant"
-                    size="small"
-                  ></v-btn>
-                </v-card-actions>
-              </v-col>
-            </v-row>
-          </v-container>
+            <v-btn
+              icon
+              class="action-btn"
+              color="grey darken-1"
+              v-tooltip.bottom="'Bookmark'"
+            >
+              <v-icon>mdi-bookmark</v-icon>
+            </v-btn>
+
+            <v-btn
+              icon
+              class="action-btn"
+              color="grey darken-1"
+              v-tooltip.bottom="'Share'"
+            >
+              <v-icon>mdi-share-variant</v-icon>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -68,40 +70,29 @@
       Start Live
     </v-btn>
   </v-container>
-  <!-- <v-container>
-    <v-row>
-      <iframe
-        src="https://www.jigsawplanet.com/?rc=play&amp;pid=1a240ca29994&amp;view=iframe"
-        style="width: 100%; height: 600px"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
-    </v-row>
-  </v-container> -->
 </template>
+
 <script>
 import { axios } from "@/store/api";
 
 export default {
   data() {
     return {
-      events: [], // Başlangıçta boş olan events dizisi
+      events: [],
     };
   },
   async mounted() {
     try {
-      const response = await axios.get("/api/rooms");
-      const rooms = response.data;
+      const response = await axios.get("/api/topics/getrandomtentopics");
+      const randomTopics = response.data.randomTopics;
 
       // API'den gelen verileri Vue bileşenindeki events dizisine aktar
-      this.events = rooms.map((room) => ({
-        title: room.roomName,
-        status: room.roomStatus, // Kullanıcı adı gelmediği için varsayılan bir değer
-        createdAt: "", // Lokasyon bilgisi de eklenebilir
-        likes: "0", // Varsayılan bir like değeri
-        image: "https://via.placeholder.com/400", // Eğer resim linki gelmiyorsa
+      this.events = randomTopics.map((topic) => ({
+        title: topic.TopicTitle,
+        desc: topic.TopicDesc, // Konunun açıklaması
+        createdAt: new Date(topic.CreatedDate).toLocaleDateString(), // Oluşturulma tarihini yerel tarih formatına çevir
+        image: `https://picsum.photos/id/10/400/400`, // Eğer resim linki gelmiyorsa
         userImage: "https://via.placeholder.com/40", // Kullanıcı resmi gelmiyorsa
-        isLive: room.roomStatus === "Basladı", // Durumuna göre canlı olup olmadığını kontrol et
       }));
     } catch (error) {
       console.error("API'den veriler alınamadı:", error);
@@ -111,11 +102,44 @@ export default {
 </script>
 
 <style scoped>
-.text-lg {
-  font-size: 1.25rem;
+/* Container for the cards */
+.v-container {
+  padding: 30px 50px;
+  background-color: #f9f9f9;
 }
 
-.v-card--active {
-  border-left: 4px solid red;
+/* Event card style */
+.event-card {
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Event title style */
+.event-title {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0 0 10px 10px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+/* Action buttons */
+.action-btn {
+  margin: 0 5px;
+  transition: color 0.2s ease;
+}
+
+.action-btn:hover {
+  color: #ff5252;
+}
+
+/* Start live button style */
+.v-btn {
+  font-weight: bold;
 }
 </style>
