@@ -39,12 +39,29 @@ onMounted(() => {
 
         <template #append>
           <VBtn
+            prepend-icon="mdi-plus"
+            href="/topic/create"
+            variant="tonal"
+            color="success"
+            class="ml-2 text-transform"
+            >Konu Oluştur</VBtn
+          >
+          <VBtn
+            prepend-icon="mdi-format-list-bulleted"
+            href="/topic/"
+            variant="tonal"
+            color="primary"
+            class="ml-2 text-transform"
+            >Konular</VBtn
+          >
+          <VBtn
             icon
             href="/profile"
             size="small"
             variant="tonal"
             color="primary"
             class="ml-2"
+            title="Profilim"
           >
             <VIcon icon="mdi-account" />
           </VBtn>
@@ -56,6 +73,7 @@ onMounted(() => {
             variant="tonal"
             color="primary"
             class="ml-2"
+            title="Telefon"
           >
             <VIcon icon="mdi-phone" />
           </VBtn>
@@ -67,8 +85,9 @@ onMounted(() => {
             variant="tonal"
             color="primary"
             class="ml-2"
+            title="Kayıt Ol"
           >
-            <VIcon icon="mdi-plus" />
+            <VIcon icon="mdi-account-plus" />
           </VBtn>
 
           <VBtn
@@ -79,6 +98,7 @@ onMounted(() => {
             variant="tonal"
             color="primary"
             class="ml-2"
+            title="Giriş Yap"
           >
             <VIcon icon="mdi-login" />
           </VBtn>
@@ -102,6 +122,7 @@ onMounted(() => {
               variant="tonal"
               color="error"
               class="ml-2"
+              title="Çıkış Yap"
             >
               <VIcon icon="mdi-logout" />
             </VBtn>
@@ -233,3 +254,8 @@ onMounted(() => {
     <Toaster rich-colors />
   </VLayout>
 </template>
+<style scoped>
+.text-transform {
+  text-transform: inherit;
+}
+</style>

@@ -83,7 +83,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await axios.get("/api/topics/getrandomtentopics");
+      const response = await axios.get("/api/topics/getrandomtwelvetopics");
       const randomTopics = response.data.randomTopics;
 
       // API'den gelen verileri Vue bileşenindeki events dizisine aktar
