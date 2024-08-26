@@ -20,14 +20,7 @@
         <p><strong>Kullanıcı ID:</strong> {{ userData.UserId }}</p>
       </div>
     </div>
-    <div v-else class="loading">
-      <v-skeleton-loader
-        style="padding: 0px 100px 0px 100px"
-        width="600px"
-        height="100vh"
-        type="card"
-      ></v-skeleton-loader>
-    </div>
+    <div v-else class="loading">Yükleniyor...</div>
   </div>
 </template>
 
