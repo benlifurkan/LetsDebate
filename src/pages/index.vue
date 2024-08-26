@@ -161,7 +161,7 @@ export default {
     max-width: 100%; /* Mobil cihazlarda kartın genişliğini sınırlama */
   }
   .v-container {
-    padding: 10px; /* Mobil cihazlar için daha da dar padding */
+    padding: 8px; /* Mobil cihazlar için daha da dar padding */
   }
 }
 </style>
