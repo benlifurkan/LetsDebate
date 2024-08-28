@@ -67,13 +67,9 @@ const handleCreateTopic = async () => {
       TopicDesc: topic.description,
     });
 
-    // API yanıtını konsola yazdır
-    console.log("API Response:", response);
-
     // Başarılı yanıt kontrolü
     if (response.data && response.status == 201) {
       toast.success("Konu başarıyla oluşturuldu!");
-      console.log("Konu başarıyla oluşturuldu!", response.data);
 
       // Kullanıcıyı konular sayfasına yönlendir
       router.push("/topic");
@@ -111,7 +107,6 @@ const handleCreateTopic = async () => {
       toast.error("HTTP Sürümü Desteklenmiyor!");
       console.error(response.data);
     }
-    console.error("Konu oluşturulamadı", response.data);
   } catch (error) {
     toast.error("Konu oluşturulurken bir hata oluştu");
     console.error("Konu oluşturulurken bir hata oluştu", error);

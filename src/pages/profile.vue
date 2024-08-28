@@ -37,10 +37,8 @@ export default {
     try {
       const userId = localStorage.getItem("userId");
       const response = await axios.get(`api/users/getuserbyid/${userId}`, {});
-      console.log(response.data);
 
-      if (response.data) {
-        console.log("Kullanıcı verisi alındı:", response.data);
+      if (response.data && response.status == 200) {
         this.userData = response.data;
       } else {
         console.error("Kullanıcı verisi bulunamadı.");

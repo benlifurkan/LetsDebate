@@ -77,9 +77,6 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      console.log("Email:", this.UserEmail);
-      console.log("Password:", this.UserPassword);
-
       try {
         // API isteği
         const response = await axios.post("/api/auth/login", {
@@ -87,14 +84,9 @@ export default {
           UserPassword: this.UserPassword,
         });
 
-        // API yanıtını konsola yazdır
-        console.log("API Response:", response);
-
         // Başarılı giriş yapıldığını kontrol et (token olup olmadığını kontrol edin)
-        if (response.data && response.data.token) {
+        if (response.data && response.data.token && response.status == 200) {
           toast.success("Login successful!");
-          console.log("Login successful!", response.data);
-          console.log(response.data.UserId);
           // Kullanıcıyı yönlendirin veya başka bir işlem yapın, örneğin token'ı saklayın
 
           const token = response.data.token;
@@ -104,8 +96,6 @@ export default {
           const userId = decodedToken.id;
 
           localStorage.setItem("userId", userId);
-
-          console.log("Kullanıcı ID:", userId);
 
           localStorage.setItem(
             "isLoggedIn",

@@ -161,9 +161,8 @@ export default {
         const response = await axios.post("/api/users/createUser", data);
 
         // API yanıtını kontrol edin
-        if (response.data) {
+        if (response.data && response.status == 201) {
           toast.success("Kayıt başarılı!");
-          console.log("Kayıt başarılı!", response.data);
           // Başarılı kayıt sonrası yapılacak işlemler, örneğin giriş sayfasına yönlendirme
           this.$router.push("../panel/login");
         } else {
@@ -172,7 +171,6 @@ export default {
         }
       } catch (error) {
         toast.error("Kayıt sırasında bir hata oluştu");
-        console.error("Kayıt sırasında bir hata oluştu", error);
 
         // Hata durumunda gelen yanıtı loglayın
         if (error.response) {

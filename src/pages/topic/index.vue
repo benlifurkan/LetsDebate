@@ -73,8 +73,6 @@ const fetchTopics = async () => {
     // API yanıtını kontrol et ve konuları ata
     if (response.data && response.status == 200) {
       topics.list = response.data;
-      console.log("Konular başarıyla alındı.");
-      console.log(response.status);
     } else {
       toast.error("Konular alınamadı: Yanıt yapısı geçersiz");
       console.error("Konular alınamadı", response.data);
