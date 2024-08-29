@@ -26,6 +26,7 @@
 
 <script>
 import { axios } from "@/store/api";
+import { toast } from "vue-sonner";
 
 export default {
   data() {
@@ -35,15 +36,26 @@ export default {
   },
   async created() {
     try {
-      const userId = localStorage.getItem("userId");
-      const response = await axios.get(`api/users/getuserbyid/${userId}`, {});
+      const token = localStorage.getItem("token");
 
-      if (response.data && response.status == 200) {
-        this.userData = response.data;
+      if (!token) {
+        console.error("Token bulunamadı. Kullanıcı oturumu geçersiz olabilir.");
+        // Gerekirse kullanıcının oturumunu sonlandır veya login sayfasına yönlendir.
+      }
+
+      const response = await axios.get(`/api/users/getuserbyid/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data.user && response.data.success) {
+        this.userData = response.data.user;
       } else {
         console.error("Kullanıcı verisi bulunamadı.");
       }
     } catch (error) {
+      toast.error("Bilgiler getirilirken hata oluştu.");
       console.error("Kullanıcı verisi alınırken hata oluştu:", error);
     }
   },

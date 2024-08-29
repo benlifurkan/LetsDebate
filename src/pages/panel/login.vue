@@ -92,11 +92,6 @@ export default {
           const token = response.data.token;
           localStorage.setItem("token", token);
 
-          const decodedToken = jwtDecode(token);
-          const userId = decodedToken.id;
-
-          localStorage.setItem("userId", userId);
-
           localStorage.setItem(
             "isLoggedIn",
             (authStore.value.isLoggedIn = true)
