@@ -66,8 +66,8 @@
       color="red darken-1"
       class="mt-4 py-3 white--text text-uppercase"
     >
-      <v-icon left>mdi-video-outline</v-icon>
-      Start Live
+      <v-icon style="margin-right: 6px" left>mdi-video-outline</v-icon>
+      Oda Aç
     </v-btn>
   </v-container>
 </template>
@@ -83,8 +83,18 @@ export default {
   },
   async mounted() {
     try {
-      const response = await axios.get("/api/topics/getrandomtwelvetopics");
-      const randomTopics = response.data.randomTopics;
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`/api/topics/getrandomtwelvetopics`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(response);
+      let randomTopics = [];
+      if (response.data && response.data.success) {
+        randomTopics = response.data.randomTopics;
+      }
 
       // API'den gelen verileri Vue bileşenindeki events dizisine aktar
       this.events = randomTopics.map((topic) => ({

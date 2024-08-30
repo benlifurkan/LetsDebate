@@ -68,11 +68,25 @@ const fetchTopics = async () => {
   topics.loading = true;
 
   try {
-    const response = await axios.get("/api/topics/getAllTopics");
+    const token = localStorage.getItem("token");
+    const response = await axios.get(`/api/topics/getAllTopics`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-    // API yanıtını kontrol et ve konuları ata
-    if (response.data && response.status == 200) {
-      topics.list = response.data;
+    console.log("API Response:", response.data); // Yanıtı konsola yazdır
+
+    // Yanıtın bir nesne olduğunu ve içinde "topics" dizisinin bulunduğunu kontrol et
+    if (response.data && response.status === 200) {
+      if (response.data.success && Array.isArray(response.data.topics)) {
+        // Yanıt başarıyla geldiyse ve "topics" bir dizi ise
+        topics.list = response.data.topics;
+      } else {
+        throw new Error(
+          "Yanıt geçerli bir formatta değil veya 'topics' bir dizi değil"
+        );
+      }
     } else {
       toast.error("Konular alınamadı: Yanıt yapısı geçersiz");
       console.error("Konular alınamadı", response.data);

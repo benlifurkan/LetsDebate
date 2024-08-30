@@ -85,7 +85,7 @@ export default {
         });
 
         // Başarılı giriş yapıldığını kontrol et (token olup olmadığını kontrol edin)
-        if (response.data && response.data.token && response.status == 200) {
+        if (response.data && response.data.token && response.data.success) {
           toast.success("Login successful!");
           // Kullanıcıyı yönlendirin veya başka bir işlem yapın, örneğin token'ı saklayın
 

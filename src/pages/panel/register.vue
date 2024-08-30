@@ -17,7 +17,6 @@
               v-model="UserName"
               id="UserName"
               type="text"
-              required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="Adınız"
             />
@@ -32,7 +31,6 @@
               v-model="UserLastName"
               id="UserLastName"
               type="text"
-              required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="Soyadınız"
             />
@@ -47,7 +45,6 @@
               v-model="NickName"
               id="NickName"
               type="text"
-              required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="Kullanıcı adınız"
             />
@@ -62,7 +59,6 @@
               v-model="UserEmail"
               id="UserEmail"
               type="email"
-              required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="you@example.com"
             />
@@ -77,7 +73,6 @@
               v-model="UserPassword"
               id="UserPassword"
               type="password"
-              required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="••••••••"
             />
@@ -92,7 +87,6 @@
               v-model="DateOfBirth"
               id="DateOfBirth"
               type="date"
-              required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
@@ -106,7 +100,6 @@
               v-model="ProfilePicture"
               id="ProfilePicture"
               type="text"
-              required
               placeholder="Dosya yolunu girin"
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             />
@@ -144,6 +137,11 @@ export default {
   methods: {
     async handleSubmit() {
       try {
+        // Doğum tarihini "yyyy.mm.dd" formatına çevir
+        const formattedDateOfBirth = new Date(
+          this.DateOfBirth
+        ).toLocaleDateString("en-CA");
+
         // FormData oluştur
         const data = {
           UserName: this.UserName,
@@ -152,16 +150,16 @@ export default {
           UserEmail: this.UserEmail,
           UserPassword: this.UserPassword,
           UserPoints: 0, // Varsayılan değer
-          RoleId: "ad03805d-df93-40b4-bde6-d10ed4489adb", // Varsayılan değer
-          DateOfBirth: this.DateOfBirth,
+          RoleId: "780C0F03-0CEA-4016-A80C-EA7B9C05E71F", // Varsayılan değer
+          DateOfBirth: formattedDateOfBirth,
           ProfilePicture: this.ProfilePicture, // Dosya yolu
         };
 
         // API'ya POST isteği gönderin
-        const response = await axios.post("/api/users/createUser", data);
+        const response = await axios.post("/api/auth/register", data);
 
         // API yanıtını kontrol edin
-        if (response.data && response.status == 201) {
+        if (response.data.user && response.data.success) {
           toast.success("Kayıt başarılı!");
           // Başarılı kayıt sonrası yapılacak işlemler, örneğin giriş sayfasına yönlendirme
           this.$router.push("../panel/login");
@@ -178,13 +176,8 @@ export default {
           console.error("Error Data:", error.response.data); // Sunucudan dönen hata mesajı
           console.error("Error Status:", error.response.status); // HTTP durum kodu
           console.error("Error Headers:", error.response.headers); // Yanıt başlıkları
-          console.log(this.UserName);
-          console.log(this.UserLastName);
-          console.log(this.NickName);
-          console.log(this.UserEmail);
-          console.log(this.UserPassword);
-          console.log(this.DateOfBirth);
-          console.log(this.ProfilePicture);
+        } else {
+          console.error("Error Message:", error.message); // Başka bir hata mesajı
         }
       }
     },

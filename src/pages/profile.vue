@@ -1,26 +1,29 @@
 <template>
   <div class="profile-container">
-    <div v-if="userData" class="profile-card">
-      <div class="profile-header">
-        <img
-          :src="userData.ProfilePicture"
-          alt="Profile Picture"
-          class="profile-picture"
-        />
-        <div class="profile-info">
-          <h1 class="username">
-            {{ userData.UserName }} {{ userData.UserLastName }}
-          </h1>
-          <h2 class="nickname">{{ userData.NickName }}</h2>
+    <div v-if="isLoading" class="loading">Yükleniyor...</div>
+    <div v-else>
+      <div v-if="userData" class="profile-card">
+        <div class="profile-header">
+          <img
+            :src="userData.ProfilePicture"
+            alt="Profile Picture"
+            class="profile-picture"
+          />
+          <div class="profile-info">
+            <h1 class="username">
+              {{ userData.UserName }} {{ userData.UserLastName }}
+            </h1>
+            <h2 class="nickname">{{ userData.NickName }}</h2>
+          </div>
+        </div>
+        <div class="profile-details">
+          <p><strong>Email:</strong> {{ userData.UserEmail }}</p>
+          <p><strong>Şifre:</strong> ***********</p>
+          <p><strong>Puan:</strong> {{ userData.UserPoints }}</p>
         </div>
       </div>
-      <div class="profile-details">
-        <p><strong>Email:</strong> {{ userData.UserEmail }}</p>
-        <p><strong>Puanlar:</strong> {{ userData.UserPoints }}</p>
-        <p><strong>Kullanıcı ID:</strong> {{ userData.UserId }}</p>
-      </div>
+      <div v-else class="loading">Lütfen hesabınıza giriş yapın.</div>
     </div>
-    <div v-else class="loading">Yükleniyor...</div>
   </div>
 </template>
 
@@ -32,6 +35,8 @@ export default {
   data() {
     return {
       userData: null,
+      isAuthenticated: true, // Başlangıçta oturum açılmış kabul ediyoruz
+      isLoading: true,
     };
   },
   async created() {
@@ -39,24 +44,27 @@ export default {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.error("Token bulunamadı. Kullanıcı oturumu geçersiz olabilir.");
-        // Gerekirse kullanıcının oturumunu sonlandır veya login sayfasına yönlendir.
+        this.isAuthenticated = false; // Token yoksa kullanıcıyı oturum açmamış olarak işaretle
+        this.isLoading = false; // Yüklenme tamamlandı
+        return;
       }
 
-      const response = await axios.get(`/api/users/getuserbyid/`, {
+      const response = await axios.get(`/api/users/profile/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (response.data.user && response.data.success) {
-        this.userData = response.data.user;
+      if (response.data.profile.user && response.data.success) {
+        this.userData = response.data.profile.user;
       } else {
-        console.error("Kullanıcı verisi bulunamadı.");
+        this.isAuthenticated = false; // Kullanıcı verisi yoksa oturum açmamış olarak işaretle
       }
     } catch (error) {
+      this.isAuthenticated = false; // Hata durumunda oturum açmamış olarak işaretle
       toast.error("Bilgiler getirilirken hata oluştu.");
-      console.error("Kullanıcı verisi alınırken hata oluştu:", error);
+    } finally {
+      this.isLoading = false; // İstek tamamlandıktan sonra yüklenme tamamlandı
     }
   },
 };
