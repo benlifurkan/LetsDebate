@@ -166,7 +166,7 @@ onMounted(() => {
           />
           <VListItem prepend-icon="mdi-fire" to="/trendler" title="Trendler" />
           <VListItem
-            prepend-icon="mdi-account-details-outline"
+            prepend-icon="mdi-account-group-outline"
             to="/siralama"
             title="Sıralama"
           />
@@ -193,7 +193,7 @@ onMounted(() => {
             title="Kayıt Ol"
           />
           <VListItem
-            prepend-icon="mdi-account"
+            prepend-icon="mdi-account-details-outline"
             to="/profile"
             title="Profilim"
           />
