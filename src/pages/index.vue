@@ -3,7 +3,12 @@
     <!-- Etkinlik Kartları -->
     <v-row>
       <v-col v-for="(item, index) in events" :key="index" cols="12" md="3">
-        <v-card class="mx-auto mb-5 event-card" max-width="350" elevation="4">
+        <v-card
+          class="mx-auto mb-5 event-card"
+          max-width="350"
+          elevation="4"
+          @click="handleTopicClick(item.TopicId)"
+        >
           <v-img
             :src="item.image"
             class="align-end"
@@ -73,7 +78,7 @@
 </template>
 
 <script>
-import { axios } from "@/store/api";
+import axios from "@/store/api";
 
 export default {
   data() {
@@ -98,6 +103,7 @@ export default {
 
       // API'den gelen verileri Vue bileşenindeki events dizisine aktar
       this.events = randomTopics.map((topic) => ({
+        TopicId: topic.TopicId, // Konunun TopicId'sini sakla
         title: topic.TopicTitle,
         desc: topic.TopicDesc, // Konunun açıklaması
         createdAt: new Date(topic.CreatedDate).toLocaleDateString(), // Oluşturulma tarihini yerel tarih formatına çevir
@@ -108,70 +114,14 @@ export default {
       console.error("API'den veriler alınamadı:", error);
     }
   },
+  methods: {
+    handleTopicClick(TopicId) {
+      this.$router.push(`/RoomofTopic/${TopicId}`);
+    },
+  },
 };
 </script>
 
 <style scoped>
-/* Container for the cards */
-.v-container {
-  padding: 30px 50px;
-  background-color: #f9f9f9;
-}
-
-/* Event card style */
-.event-card {
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  background-color: #ffffff;
-}
-
-.event-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Event title style */
-.event-title {
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 0 0 10px 10px;
-  font-weight: bold;
-  padding: 10px;
-}
-
-/* Action buttons */
-.action-btn {
-  margin: 0 5px;
-  transition: color 0.2s ease;
-}
-
-.action-btn:hover {
-  color: #ff5252;
-}
-
-/* Start live button style */
-.v-btn {
-  font-weight: bold;
-}
-
-/* index.vue - Mobil uyumluluk için düzenlemeler */
-.v-container {
-  padding: 15px; /* Mobil cihazlar için daha dar padding */
-  background-color: #f9f9f9;
-}
-
-.event-card {
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  background-color: #ffffff;
-  margin: 10px auto; /* Kartlar arasında daha fazla boşluk bırak */
-}
-
-@media (max-width: 600px) {
-  .event-card {
-    max-width: 100%; /* Mobil cihazlarda kartın genişliğini sınırlama */
-  }
-  .v-container {
-    padding: 5px; /* Mobil cihazlar için daha da dar padding */
-  }
-}
+/* Stil dosyanız burada kalacak */
 </style>

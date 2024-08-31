@@ -31,7 +31,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive } from "vue";
 import { toast } from "vue-sonner";
-import { axios } from "@/store/api";
+import axios from "@/store/api";
 
 // Konu veri yapısını tanımla
 interface Topic {

@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { axios } from "@/store/api";
+import axios from "@/store/api";
 import { toast } from "vue-sonner";
 
 // Router ve reaktif veri yapısını tanımla

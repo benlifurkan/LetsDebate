@@ -63,7 +63,7 @@
 
 <script>
 import { toast } from "vue-sonner";
-import { axios } from "@/store/api";
+import axios from "@/store/api";
 import { authStore } from "@/store/auth";
 import { jwtDecode } from "jwt-decode";
 

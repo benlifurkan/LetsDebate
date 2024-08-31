@@ -120,7 +120,7 @@
 
 <script>
 import { toast } from "vue-sonner";
-import { axios } from "@/store/api";
+import axios from "@/store/api";
 
 export default {
   data() {

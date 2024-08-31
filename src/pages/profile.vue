@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { axios } from "@/store/api";
+import axios from "@/store/api";
 import { toast } from "vue-sonner";
 
 export default {

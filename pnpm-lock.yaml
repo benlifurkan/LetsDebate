@@ -151,8 +151,8 @@ packages:
     dependencies:
       '@babel/types': 7.25.2
 
-  /@babel/runtime@7.25.4:
-    resolution: {integrity: sha512-DSgLeL/FNcpXuzav5wfYvHCGvynXkJbn3Zvc3823AEe9nPwW9IK4UoCSS5yGymmQzN0pCPvivtgS6/8U2kkm1w==}
+  /@babel/runtime@7.25.6:
+    resolution: {integrity: sha512-VBj9MYyDb9tuLq7yzqjgzt6Q+IBQLrGZfdjOekyEirZPHxXWoTSGUTMrpsfi58Up73d13NfYLv8HT9vmznjzhQ==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
@@ -1513,7 +1513,7 @@ packages:
     resolution: {integrity: sha512-pkIrgCxa2hlwDef7RYSbD74VSb2oCVnC31RhVOQvsSvhft+fR0JAJpD9V0U5z4rigekoQUWYwhM3y9N7hXGhWw==}
     hasBin: true
     dependencies:
-      '@babel/runtime': 7.25.4
+      '@babel/runtime': 7.25.6
       '@devextreme/runtime': 3.0.13
       devexpress-diagram: 2.2.10
       devexpress-gantt: 4.1.56

@@ -1,5 +1,6 @@
-import { default as axiosIns } from "axios";
+import axios from "axios";
 
-export const axios = axiosIns.create({
-    baseURL: "http://orionn.xyz:7007",
-});
+// Axios ayarlarınızı buraya ekleyebilirsiniz
+axios.defaults.baseURL = "http://orionn.xyz:7007";
+
+export default axios;
