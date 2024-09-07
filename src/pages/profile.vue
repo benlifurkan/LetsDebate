@@ -49,11 +49,7 @@ export default {
         return;
       }
 
-      const response = await axios.get(`/api/users/profile/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(`/api/users/profile/`);
 
       if (response.data.profile.user && response.data.success) {
         this.userData = response.data.profile.user;

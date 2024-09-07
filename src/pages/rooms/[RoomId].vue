@@ -9,7 +9,7 @@
     </div>
 
     <!-- Kamera - Ortada -->
-    <div class="w-2/4 flex flex-col items-center bg-gray-100">
+    <div class="w-2/4 flex flex-col items-center overflow-hidden bg-gray-100">
       <div
         class="bg-black w-full h-3/4 rounded-lg flex items-center justify-center"
       >
@@ -17,45 +17,46 @@
           ref="videoRef"
           autoplay
           playsinline
-          class="w-full h-full object-cover rounded-lg"
-          controls
-        ></video>
+          muted
+          class="w-full h-full object-cover rounded-lg pointer-events-none"
+          :controls="false"
+        />
       </div>
+
       <!-- Kamera, Mikrofon ve Çıkış Cihazı Seçimi -->
-      <div class="mt-4 flex space-x-4">
+      <div class="mt-4 grid lg:grid-cols-3 gap-4 px-3">
         <select
           class="p-2 rounded border border-gray-300"
-          v-model="selectedVideoDevice"
-          @change="getUserMedia"
+          v-model="selectedDeviceId.camera"
         >
           <option
-            v-for="device in videoDevices"
+            v-for="device in cameras"
             :key="device.deviceId"
             :value="device.deviceId"
           >
             {{ device.label || `Kamera ${device.deviceId}` }}
           </option>
         </select>
+
         <select
           class="p-2 rounded border border-gray-300"
-          v-model="selectedAudioDevice"
-          @change="getUserMedia"
+          v-model="selectedDeviceId.microphone"
         >
           <option
-            v-for="device in audioDevices"
+            v-for="device in microphones"
             :key="device.deviceId"
             :value="device.deviceId"
           >
             {{ device.label || `Mikrofon ${device.deviceId}` }}
           </option>
         </select>
+
         <select
           class="p-2 rounded border border-gray-300"
-          v-model="selectedOutputDevice"
-          @change="changeAudioOutput"
+          v-model="selectedDeviceId.output"
         >
           <option
-            v-for="device in outputDevices"
+            v-for="device in speakers"
             :key="device.deviceId"
             :value="device.deviceId"
           >
@@ -94,121 +95,90 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted } from "vue";
+<script lang="ts" setup>
+import { ref, onMounted, watchEffect, watch, computed, reactive } from "vue";
 import { useRoute } from "vue-router";
 import axios from "@/store/api"; // Axios'u doğru şekilde içe aktarın
+import { useDevicesList, useUserMedia } from "@vueuse/core";
 
-export default {
-  setup() {
-    const route = useRoute();
-    const RoomId = route.params.RoomId;
-    const room = ref({});
-    const videoDevices = ref([]);
-    const audioDevices = ref([]);
-    const outputDevices = ref([]);
-    const selectedVideoDevice = ref("");
-    const selectedAudioDevice = ref("");
-    const selectedOutputDevice = ref("");
-    const videoRef = ref(null);
+interface Room {
+  Topic: {
+    TopicTitle: string;
+    TopicDesc: string;
+  };
+  RoomStatus: {
+    StatusName: string;
+  };
+  DurationLimit: number;
+  TotalDuration: number;
+  CreatedDate: string;
+}
 
-    const fetchRoomData = async () => {
-      try {
-        const response = await axios.get(`api/rooms/getRoomById/${RoomId}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        console.log(response.data);
-        room.value = response.data.room;
-      } catch (error) {
-        console.error("Veri alınırken hata oluştu:", error);
-      }
-    };
+const route = useRoute();
+const RoomId = route.params.RoomId;
+const room = ref<Room>({} as Room);
 
-    const getDevices = async () => {
-      try {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        videoDevices.value = devices.filter(
-          (device) => device.kind === "videoinput"
-        );
-        audioDevices.value = devices.filter(
-          (device) => device.kind === "audioinput"
-        );
-        outputDevices.value = devices.filter(
-          (device) => device.kind === "audiooutput"
-        );
+const videoRef = ref<HTMLVideoElement>();
 
-        selectedVideoDevice.value = videoDevices.value[0]?.deviceId || "";
-        selectedAudioDevice.value = audioDevices.value[0]?.deviceId || "";
-        selectedOutputDevice.value = outputDevices.value[0]?.deviceId || "";
-      } catch (error) {
-        console.error("Cihazları listelerken hata oluştu:", error);
-      }
-    };
+const selectedDeviceId = reactive({
+  camera: "",
+  microphone: "",
+  output: "",
+});
 
-    const getUserMedia = async () => {
-      try {
-        const constraints = {
-          video: selectedVideoDevice.value
-            ? { deviceId: { exact: selectedVideoDevice.value } }
-            : true,
-          audio: selectedAudioDevice.value
-            ? { deviceId: { exact: selectedAudioDevice.value } }
-            : true,
-        };
+const {
+  videoInputs: cameras,
+  audioInputs: microphones,
+  audioOutputs: speakers,
+} = useDevicesList({
+  requestPermissions: true,
+});
 
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+watchEffect(() => {
+  if (!selectedDeviceId.camera && cameras.value)
+    selectedDeviceId.camera = cameras.value[0]?.deviceId;
 
-        if (videoRef.value) {
-          videoRef.value.srcObject = stream;
+  if (!selectedDeviceId.microphone && microphones.value)
+    selectedDeviceId.microphone = microphones.value[0]?.deviceId;
 
-          // Tarayıcının video oynatmayı otomatik başlatmasına izin vermesi için
-          videoRef.value.onloadedmetadata = () => {
-            videoRef.value.play();
-          };
-        } else {
-          console.error("Video elementi bulunamadı.");
-        }
-      } catch (error) {
-        console.error("Kamera veya mikrofon erişim hatası:", error);
-      }
-    };
+  if (!selectedDeviceId.output && speakers.value)
+    selectedDeviceId.output = speakers.value[0]?.deviceId;
+});
 
-    const changeAudioOutput = async () => {
-      if (videoRef.value && typeof videoRef.value.setSinkId !== "undefined") {
-        try {
-          await videoRef.value.setSinkId(selectedOutputDevice.value);
-        } catch (error) {
-          console.warn("Hoparlör değiştirilemedi:", error);
-        }
-      } else {
-        console.warn("Tarayıcı hoparlör seçim desteği sağlamıyor.");
-      }
-    };
+const currentCamera = computed(() => selectedDeviceId.camera);
 
-    onMounted(async () => {
-      await fetchRoomData(); // Oda verilerini çek
-      await getDevices(); // Cihazları listele
-      await getUserMedia(); // Kamera ve mikrofon akışını başlat
-    });
-
-    return {
-      room,
-      videoDevices,
-      audioDevices,
-      outputDevices,
-      selectedVideoDevice,
-      selectedAudioDevice,
-      selectedOutputDevice,
-      videoRef,
-      getUserMedia,
-      changeAudioOutput,
-    };
+const { stream, start, stop } = useUserMedia({
+  constraints: {
+    // @ts-ignore-next-line
+    video: { deviceId: currentCamera },
+    audio: false,
   },
-};
-</script>
+});
 
-<style scoped>
-/* Stil dosyanız burada kalacak */
-</style>
+const fetchRoomData = async () => {
+  try {
+    const response = await axios.get(`api/rooms/getRoomById/${RoomId}`);
+    room.value = response.data.room;
+  } catch (error) {
+    console.error("Veri alınırken hata oluştu:", error);
+  }
+};
+
+onMounted(async () => {
+  await fetchRoomData(); // Oda verilerini çek
+  start();
+});
+
+watchEffect(() => {
+  if (!videoRef.value || !stream.value) return;
+  videoRef.value.srcObject = stream.value;
+});
+
+watch(
+  () => selectedDeviceId.camera,
+  () => {
+    stop();
+    start();
+  }
+);
+</script>

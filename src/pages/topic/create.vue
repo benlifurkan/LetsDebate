@@ -61,20 +61,10 @@ const handleCreateTopic = async () => {
   loading.create = true;
 
   try {
-    const token = localStorage.getItem("token");
-    // API isteği
-    const response = await axios.post(
-      "/api/topics/createTopic",
-      {
-        TopicTitle: topic.title,
-        TopicDesc: topic.description,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.post("/api/topics/createTopic", {
+      TopicTitle: topic.title,
+      TopicDesc: topic.description,
+    });
 
     // Başarılı yanıt kontrolü
     if (response.data && response.status == 201) {

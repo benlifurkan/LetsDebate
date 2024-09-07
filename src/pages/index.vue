@@ -88,15 +88,10 @@ export default {
   },
   async mounted() {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(`/api/topics/getrandomtwelvetopics`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get("/api/topics/getrandomtwelvetopics");
 
-      console.log(response);
       let randomTopics = [];
+
       if (response.data && response.data.success) {
         randomTopics = response.data.randomTopics;
       }

@@ -70,12 +70,7 @@ export default {
     async fetchRoomsByTopicId() {
       try {
         const response = await axios.get(
-          `api/rooms/getRoomsByTopicId/${this.TopicId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
+          `api/rooms/getRoomsByTopicId/${this.TopicId}`
         );
 
         console.log(response.data);

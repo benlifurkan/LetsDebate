@@ -1,6 +1,31 @@
 import axios from "axios";
+import router from "@/router";
 
-// Axios ayarlarınızı buraya ekleyebilirsiniz
-axios.defaults.baseURL = "https://orionn.xyz";
+const api = axios.create({
+  baseURL: "https://orionn.xyz",
+});
 
-export default axios;
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if ([401, 403].includes(error.response?.status)) {
+      router.push("/panel/login");
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+export default api;

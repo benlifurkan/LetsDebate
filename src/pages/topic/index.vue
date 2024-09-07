@@ -68,12 +68,7 @@ const fetchTopics = async () => {
   topics.loading = true;
 
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.get(`/api/topics/getAllTopics`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(`/api/topics/getAllTopics`);
 
     console.log("API Response:", response.data); // Yanıtı konsola yazdır
 
