@@ -21,7 +21,7 @@ api.interceptors.response.use(
   },
   (error) => {
     if ([401, 403].includes(error.response?.status)) {
-      router.push("/panel/login");
+      router.push("/auth/login");
     }
 
     return Promise.reject(error);

@@ -162,7 +162,7 @@ export default {
         if (response.data.user && response.data.success) {
           toast.success("Kayıt başarılı!");
           // Başarılı kayıt sonrası yapılacak işlemler, örneğin giriş sayfasına yönlendirme
-          this.$router.push("../panel/login");
+          this.$router.push("../auth/login");
         } else {
           toast.error("Kayıt başarısız: Geçersiz yanıt yapısı");
           console.error("Kayıt başarısız", response.data);

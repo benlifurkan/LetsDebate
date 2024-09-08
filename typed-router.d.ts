@@ -20,9 +20,9 @@ declare module 'vue-router/auto-routes' {
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/[404]': RouteRecordInfo<'/[404]', '/:404', { 404: ParamValue<true> }, { 404: ParamValue<false> }>,
-    '/panel/login': RouteRecordInfo<'/panel/login', '/panel/login', Record<never, never>, Record<never, never>>,
-    '/panel/logout': RouteRecordInfo<'/panel/logout', '/panel/logout', Record<never, never>, Record<never, never>>,
-    '/panel/register': RouteRecordInfo<'/panel/register', '/panel/register', Record<never, never>, Record<never, never>>,
+    '/auth/login': RouteRecordInfo<'/auth/login', '/auth/login', Record<never, never>, Record<never, never>>,
+    '/auth/logout': RouteRecordInfo<'/auth/logout', '/auth/logout', Record<never, never>, Record<never, never>>,
+    '/auth/register': RouteRecordInfo<'/auth/register', '/auth/register', Record<never, never>, Record<never, never>>,
     '/profile': RouteRecordInfo<'/profile', '/profile', Record<never, never>, Record<never, never>>,
     '/RoomofTopic/[TopicId]': RouteRecordInfo<'/RoomofTopic/[TopicId]', '/RoomofTopic/:TopicId', { TopicId: ParamValue<true> }, { TopicId: ParamValue<false> }>,
     '/rooms/[RoomId]': RouteRecordInfo<'/rooms/[RoomId]', '/rooms/:RoomId', { RoomId: ParamValue<true> }, { RoomId: ParamValue<false> }>,

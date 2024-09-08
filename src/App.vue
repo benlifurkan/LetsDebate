@@ -80,7 +80,7 @@ onMounted(() => {
 
           <VBtn
             icon
-            href="/panel/register"
+            href="/auth/register"
             size="small"
             variant="tonal"
             color="primary"
@@ -93,7 +93,7 @@ onMounted(() => {
           <VBtn
             v-if="!authStore.isLoggedIn"
             icon
-            to="/panel/login"
+            to="/auth/login"
             size="small"
             variant="tonal"
             color="primary"
@@ -106,7 +106,7 @@ onMounted(() => {
           <template v-else>
             <!-- <VBtn
               icon
-              to="/panel"
+              to="/auth"
               size="small"
               variant="tonal"
               color="primary"
@@ -117,7 +117,7 @@ onMounted(() => {
 
             <VBtn
               icon
-              to="/panel/logout"
+              to="/auth/logout"
               size="small"
               variant="tonal"
               color="error"
@@ -178,18 +178,18 @@ onMounted(() => {
           <VListItem
             v-if="!authStore.isLoggedIn"
             prepend-icon="mdi-login"
-            to="/panel/login"
+            to="/auth/login"
             title="Giriş Yap"
           />
           <VListItem
             v-else
             prepend-icon="mdi-logout"
-            to="/panel/logout"
+            to="/auth/logout"
             title="Çıkış Yap"
           />
           <VListItem
             prepend-icon="mdi-account-plus"
-            to="/panel/register"
+            to="/auth/register"
             title="Kayıt Ol"
           />
           <VListItem
