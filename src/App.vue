@@ -1,14 +1,10 @@
 <script lang="ts" setup>
-import { useQRCode } from "@vueuse/integrations/useQRCode";
 import { Toaster } from "vue-sonner";
 import { authStore } from "@/store/auth";
 import { ref, onMounted } from "vue";
 
 const sidebar = ref(false);
 const link = ref("");
-const qrCode = useQRCode(link, {
-  margin: 0,
-});
 
 onMounted(() => {
   link.value = location.origin;
@@ -228,27 +224,7 @@ onMounted(() => {
         <VContainer>
           <div
             class="d-flex flex-column-reverse align-center align-md-start flex-md-row"
-          >
-            <iframe
-              title="İstanbul"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d385396.3210961672!2d28.682527326897503!3d41.00537021009964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0xe1ccfe98bc01b0d0!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1724182773271!5m2!1str!2str"
-              width="100%"
-              height="300"
-              style="border: 0"
-              allowfullscreen="false"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              class="rounded-lg flex-1-1 border"
-            ></iframe>
-            <VImg
-              v-if="link"
-              :src="qrCode"
-              alt="qr-code"
-              width="150"
-              height="150"
-              class="ms-md-6 mb-6 mb-md-0"
-            />
-          </div>
+          ></div>
 
           <div
             class="d-flex flex-wrap align-center justify-md-space-between justify-center"
