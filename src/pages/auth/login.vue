@@ -78,16 +78,13 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        // API isteği
         const response = await api.post("/api/auth/login", {
           UserEmail: this.UserEmail,
           UserPassword: this.UserPassword,
         });
 
-        // Başarılı giriş yapıldığını kontrol et (token olup olmadığını kontrol edin)
         if (response.data && response.data.token && response.data.success) {
           toast.success("Login successful!");
-          // Kullanıcıyı yönlendirin veya başka bir işlem yapın, örneğin token'ı saklayın
 
           const token = response.data.token;
           localStorage.setItem("token", token);
@@ -97,7 +94,6 @@ export default {
             (authStore.value.isLoggedIn = true)
           );
 
-          // Ana sayfaya yönlendirme yapın
           this.$router.push("/");
         } else {
           toast.error("Login failed: Invalid response structure");
@@ -107,7 +103,6 @@ export default {
         toast.error("An error occurred while logging in");
         console.error("An error occurred while logging in", error);
 
-        // Hata durumunda gelen yanıtı da loglayın
         if (error.response) {
           console.error("Error Response:", error.response);
         }
