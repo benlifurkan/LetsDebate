@@ -63,7 +63,7 @@
 
 <script>
 import { toast } from "vue-sonner";
-import axios from "@/store/api";
+import api from "@/store/api";
 import { authStore } from "@/store/auth";
 import { jwtDecode } from "jwt-decode";
 
@@ -79,10 +79,12 @@ export default {
     async handleSubmit() {
       try {
         // API isteği
-        const response = await axios.post("/api/auth/login", {
+        const response = await api.post("/api/auth/login", {
           UserEmail: this.UserEmail,
           UserPassword: this.UserPassword,
         });
+
+        console.log(response.data);
 
         // Başarılı giriş yapıldığını kontrol et (token olup olmadığını kontrol edin)
         if (response.data && response.data.token && response.data.success) {
