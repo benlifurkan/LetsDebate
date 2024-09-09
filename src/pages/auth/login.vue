@@ -84,8 +84,6 @@ export default {
           UserPassword: this.UserPassword,
         });
 
-        console.log(response.data);
-
         // Başarılı giriş yapıldığını kontrol et (token olup olmadığını kontrol edin)
         if (response.data && response.data.token && response.data.success) {
           toast.success("Login successful!");

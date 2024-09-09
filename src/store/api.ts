@@ -2,7 +2,7 @@ import axios from "axios";
 import router from "@/router";
 
 const api = axios.create({
-  baseURL: "http://163.5.242.173:7007",
+  baseURL: "https://orionn.xyz",
 });
 
 api.interceptors.request.use((config) => {
