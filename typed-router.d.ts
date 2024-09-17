@@ -28,5 +28,6 @@ declare module 'vue-router/auto-routes' {
     '/rooms/[RoomId]': RouteRecordInfo<'/rooms/[RoomId]', '/rooms/:RoomId', { RoomId: ParamValue<true> }, { RoomId: ParamValue<false> }>,
     '/topic/': RouteRecordInfo<'/topic/', '/topic', Record<never, never>, Record<never, never>>,
     '/topic/create': RouteRecordInfo<'/topic/create', '/topic/create', Record<never, never>, Record<never, never>>,
+    '/trend/': RouteRecordInfo<'/trend/', '/trend', Record<never, never>, Record<never, never>>,
   }
 }
