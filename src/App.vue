@@ -160,7 +160,7 @@ onMounted(() => {
             to="/"
             link
           />
-          <VListItem prepend-icon="mdi-fire" to="/trendler" title="Trendler" />
+          <VListItem prepend-icon="mdi-fire" to="/trend" title="Trendler" />
           <VListItem
             prepend-icon="mdi-account-group-outline"
             to="/siralama"
