@@ -121,7 +121,7 @@ const fetchTopics = async () => {
   topics.loading = true;
 
   try {
-    const response = await axios.get(`/api/topics/getAllTopics`);
+    const response = await axios.get(`/api/topics/getAllTopic`);
 
     // Yanıtın bir nesne olduğunu ve içinde "topics" dizisinin bulunduğunu kontrol et
     if (response.data && response.status === 200) {
